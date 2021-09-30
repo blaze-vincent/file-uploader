@@ -6,12 +6,22 @@ const fs = require('fs');
 const server = http.createServer();
 
 server.on('request', (req, res) => {
-    switch(req.url){
+    let destination;
+    switch(req.url){ //basic routing
         case '/':
-            res.end(fs.readFileSync('index.html'));
+            destination = 'public/index.html';
+        break;
+        default:
+            destination = `public${req.url}`;
         break;
     }
-    return;
+    try {
+        res.end(fs.readFileSync(destination));
+    } catch(err){
+        res.statusCode = 404;
+        res.statusMessage = 'not found';
+        res.end()
+    }
 });
 
 
