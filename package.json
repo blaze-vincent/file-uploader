@@ -1,0 +1,23 @@
+{
+  "name": "file-uploader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blaze-vincent/file-uploader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blaze-vincent/file-uploader/issues"
+  },
+  "homepage": "https://github.com/blaze-vincent/file-uploader#readme",
+  "dependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
