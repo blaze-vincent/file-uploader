@@ -1,7 +1,8 @@
 const domElements = {
     uploaderForm: document.querySelector('#uploader-form'),
     fileInput: document.querySelector('#file-input'),
-    submitInput: document.querySelector('#submit-input')
+    submitInput: document.querySelector('#submit-input'),
+    progressIndicator: document.querySelector('#progress-indicator')
 }
 
 domElements.uploaderForm.addEventListener('submit', e => {
@@ -18,6 +19,7 @@ domElements.uploaderForm.addEventListener('submit', e => {
     fileReader.onload = async _ => {
         const CHUNK_SIZE = 50000; // bytes
         const bufferData = _.target.result;
+        let uploadProgress = 0;
 
         for(let chunkSector = 0; chunkSector < bufferData.byteLength; chunkSector += CHUNK_SIZE) 
         {
@@ -37,8 +39,19 @@ domElements.uploaderForm.addEventListener('submit', e => {
                 },
                 body: chunk
             })
+
+            //update upload progress indicator
+            uploadProgress = Math.floor(chunkSector/bufferData.byteLength * 100);
+            domElements.progressIndicator.innerText = `upload progress: ${uploadProgress}%`;
         }
+    //todo: verify that server has recieved the full file
+
+    //temporary solution
+    domElements.progressIndicator.innerText = 'upload progress: complete'
+    //end temporary solution
+
     }
+
 
     fileReader.readAsArrayBuffer(fileSubmission)
 
